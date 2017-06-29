@@ -1,0 +1,82 @@
+{% extends 'control/base.html' %}
+{% block title %}{{ category }}{% endblock %}
+{% block categories_active %}active{% endblock %}
+{% block body %}
+<div class="container-fluid product-container">
+    <div class="row">
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'control:detail' category.id %}">
+                        {% if category.category_logo %}
+                            <img src="{{ category.category_logo.url }}" class="img-responsive">
+                        {% else %}
+                            <h3>No tienes Imagenes</h3>
+                        {% endif %}
+                    </a>
+                <h1>{{ category.name_category }}</h1>
+            </div>
+            </div>
+        </div>
+        <div class="col-sm-8 col-md-9">
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" class="active"><a href="{% url 'control:detail' category.id %}">Ver todo los productos</a></li>
+                <li role="presentation"><a href="{% url 'control:product_add' category.id %}">Agregar nuevo producto</a> </li>
+            </ul>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Todo los productos</h3>
+                    {% if error_message %}
+                        <p><strong>{{ error_message}}</strong></p>
+                    {% endif%}
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>codigo de producto</th>
+                            <th>nombre de producto</th>
+                            <th>marca </th>
+                            <th>categoria</th>
+                            <th>cantidad </th>
+                            <th>precio unit </th>
+                            <th>fecha ingreso</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for product in category.product_set.all %}
+                            <tr>
+                                <td>{{ product.cod_product }}</td>
+                                <td>{{ product.nome_product }}</td>
+                                <td>{{ product.marca_product }}</td>
+                                <td>{{ product.category.name_category }}</td>
+                                <td>{{ product.cant_product }}</td>
+                                <td>{{ product.precio_unitario }}</td>
+                                <td>{{ product.fecha_ingreso }}</td>
+                                <td>
+                                    <form action="{% url 'control:delete_product' category.id product.id %}" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="product_id" value="{{ product.id }}"/>
+                                        <button type="submit" class="btn btn-danger btn-xs">
+                                            <span class="glyphicon glyphicon-remove"></span>&nbsp; Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+<!--    <img src="{{ category.category_logo }}" style="with: 250px;">
+    <h1>{{ category.name_category }}</h1>
+
+    <ul>
+        {% for product in category.product_set.all %}
+            <li>{{product.cod_product}}- {{ product.nome_product }}</li>
+        {% endfor %}
+    </ul>-->
