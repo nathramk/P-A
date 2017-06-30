@@ -73,6 +73,8 @@ def deleteCategory(request, category_id):
     category.delete()
     categories = Category.objects.filter(user=request.user)
     return render(request, 'control/index.html', {'categories': categories})
+
+
 #    categories = get_object_or_404(Category, pk=category_id)
 #    if request.method == 'POST':
 #        categories.delete()
@@ -114,6 +116,17 @@ def createProduct(request, category_id):
     return render(request, 'control/product_form.html', context)
 
 
+def singleProduct_view(request, category_id, product_id):
+    category = get_object_or_404(Category, pk=category_id)
+    product = Product.objects.get(pk=product_id)
+
+    context = {
+        'category': category,
+        'product': product,
+    }
+    return render(request, 'control/singleProduct.html', context)
+
+
 def delete_product(request, category_id, product_id):
     category = get_object_or_404(Category, pk=category_id)
     product = Product.objects.get(pk=product_id)
@@ -126,11 +139,11 @@ def productos(request, filter_by):
         return request(request, 'control/login.html')
     else:
         try:
-            products_ids = []
+            product_ids = []
             for category in Category.objects.filter(user=request.user):
                 for product in category.product_set.all():
-                    products_ids.append(product.pk)
-            user_product = Product.objects.filter(pk__in=products_ids)
+                    product_ids.append(product.pk)
+            user_product = Product.objects.filter(pk__in=product_ids)
         except Category.DoesNotExist:
             user_product = user_product
         context = {
@@ -175,6 +188,8 @@ def login_user(request):
         else:
             return render(request, 'control/login.html', {'error_message': 'invalid login'})
     return render(request, 'control/login.html')
+
+
 # class IndexView(generic.ListView):
 #    template_name = 'control/index.html'
 #    context_object_name = 'all_categories'

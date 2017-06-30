@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^(?P<category_id>[0-9]+)/delete_product/(?P<product_id>[0-9]+)/$', views.delete_product,
         name='delete_product'),
     url(r'^(?P<category_id>[0-9]+)/deleteCategory/$', views.deleteCategory, name='category-delete'),
+    url(r'^(?P<category_id>[0-9]+)/product/(?P<product_id>[0-9]+)/$', views.singleProduct_view, name='single_product'),
 ]
 # urlpatterns = [
 #    url(r'^$', views.IndexView.as_view(), name='index'),

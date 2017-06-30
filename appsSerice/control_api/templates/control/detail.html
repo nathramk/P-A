@@ -29,7 +29,7 @@
                     {% if error_message %}
                         <p><strong>{{ error_message}}</strong></p>
                     {% endif%}
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                         <tr>
                             <th>codigo de producto</th>
@@ -60,7 +60,19 @@
                                         </button>
                                     </form>
                                 </td>
+                                <td>
+                                    <form action="#" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="product_id" value="{{ product.id }}"/>
+                                        <button type="submit" class="btn btn-success btn-xs">
+                                            <span class="glyphicon glyphicon-pencil"></span>&nbsp; Edit
+                                        </button>
+                                    </form>
+                                </td>
+                                <td><a class="btn" href="{% url 'control:single_product' category.id product.id %}"><li class="glyphicon glyphicon-search"></li>Ver</a> </td>
+                                <td><a class="btn" href="#"><li class="glyphicon glyphicon-shopping-cart"></li>Comprar</a> </td>
                             </tr>
+                        <!--  {% url 'control:single_product' category.id product.id %}  -->
                         {% endfor %}
                         </tbody>
                     </table>

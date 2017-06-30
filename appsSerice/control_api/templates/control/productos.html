@@ -24,6 +24,7 @@
                                 <th>cantidad </th>
                                 <th>precio unit </th>
                                 <th>fecha ingreso</th>
+                                <th>image</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -32,12 +33,15 @@
                                     <td>{{ product.cod_product }}</td>
                                     <td>{{ product.nome_product }}</td>
                                     <td>{{ product.marca_product }}</td>
-                                    <td>{{ product.cant_product }}</td>
                                     <td><a href="{% url 'control:detail' product.category.id %}">
-                                        <img src="{{ product.category.category_logo.url }}" class="img-responsive" style="wodth: 20px; float: left; margin-right: 10px;">
+                                        <img src="{{ product.category.category_logo.url }}" class="img-responsive" style="width: 20px; float: left; margin-right: 10px;">
                                     </a><a href="{% url 'product:detail' product.category.id %}">{{ product.category.name_category }}</a></td>
+                                    <td>{{ product.cant_product }}</td>
                                     <td>{{ product.precio_unitario }}</td>
                                     <td>{{ product.fecha_ingreso }}</td>
+                                    <td>
+                                        <img src="{{ product.product_logo }}" class="img-responsive" style="width: 20px; float: left; margin-right: 10px;">
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>

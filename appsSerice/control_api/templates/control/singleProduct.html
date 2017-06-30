@@ -1,0 +1,29 @@
+{% extends 'control/base.html' %}
+{% block title %}{{ product }}{% endblock %}
+{% block body %}
+<div class="container-fluid product-container">
+    <div class="row">
+        <div class="col-md-3 col-md-offset-3">
+            <h1>{{ product.nome_product }}</h1>
+            <img src="{{ product.product_logo.url }}" width="350px" height="350px" class="img-thumbnail">
+            <p>Codigo de producto: {{ product.cod_product }}</p>
+            <p>Marca: {{ product.marca_product }}</p>
+            <p>stock: {{ product.cant_product }}</p>
+            <p>categoria: {{ product.category }}</p>
+
+        </div>
+        <div class="col-md-4 col-md-offset-0.5">
+            <p>precion Unitario: </p>
+            <p>S/.{{ product.precio_unitario }}</p>
+            <p>fecha de ingreso: {{ product.fecha_ingreso }}</p>
+            {% if product.cant_product > 0 %}
+                <a href="#"class="btn btn-primary">Comprar Producto </a>
+            {% else %}
+                <a>Agotado stock</a>
+            {% endif %}
+            <br><br>
+            <a href="{% url 'control:detail' category.id %}" class="btn btn-primary">Regresar a la lista</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
