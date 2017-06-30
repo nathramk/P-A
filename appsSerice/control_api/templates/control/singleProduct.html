@@ -17,12 +17,15 @@
             <p>S/.{{ product.precio_unitario }}</p>
             <p>fecha de ingreso: {{ product.fecha_ingreso }}</p>
             {% if product.cant_product > 0 %}
-                <a href="#"class="btn btn-primary">Comprar Producto </a>
+                <a id="comprar" href="#"class="btn btn-primary">Comprar Producto </a>
             {% else %}
                 <a>Agotado stock</a>
             {% endif %}
             <br><br>
             <a href="{% url 'control:detail' category.id %}" class="btn btn-primary">Regresar a la lista</a>
+            <form id="venta" method="post" action="#">
+                <input type="hidden" value="{{ product.id }}">
+            </form>
         </div>
     </div>
 </div>

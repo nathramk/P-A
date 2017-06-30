@@ -50,6 +50,7 @@ def add_category(request):
         modelform = CategoryForm(request.POST or None, request.FILES or None)
         if modelform.is_valid():
             category = modelform.save(commit=False)
+            category.user = request.user
             category.category_logo = request.FILES['category_logo']
             file_type = category.category_logo.url.split('.')[-1]
             file_type = file_type.lower()
@@ -134,6 +135,15 @@ def delete_product(request, category_id, product_id):
     return render(request, 'control/detail.html', {'category': category})
 
 
+def product_update(request, category_id):
+    category = get_object_or_404(Category, pk=category_id)
+    modelForm = ProductForm(request.POST or None, instance=category)
+    if modelForm.is_valid():
+        modelForm.save()
+        return redirect('control/detail.html')
+    return render(request, 'control/product_form.html', {'form': modelForm})
+
+
 def productos(request, filter_by):
     if not request.user.is_authenticated():
         return request(request, 'control/login.html')
@@ -188,6 +198,17 @@ def login_user(request):
         else:
             return render(request, 'control/login.html', {'error_message': 'invalid login'})
     return render(request, 'control/login.html')
+
+
+def logout_user(request):
+    logout(request)
+    modelForm = UserForm(request.POST or None)
+    context = {
+        "form": modelForm,
+    }
+    return render(request, 'control/login.html', context)
+
+
 
 
 # class IndexView(generic.ListView):

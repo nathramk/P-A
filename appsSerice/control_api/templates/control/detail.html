@@ -61,7 +61,7 @@
                                     </form>
                                 </td>
                                 <td>
-                                    <form action="#" method="post" style="display: inline;">
+                                    <form action="{% url 'control:product_update' category.id %}" method="post" style="display: inline;">
                                         {% csrf_token %}
                                         <input type="hidden" name="product_id" value="{{ product.id }}"/>
                                         <button type="submit" class="btn btn-success btn-xs">

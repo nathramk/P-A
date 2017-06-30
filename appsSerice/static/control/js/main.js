@@ -27,3 +27,9 @@ $(document).ready(function() {
 	CategoriesListPage.init();
 	ProductsListPage.init();
 });
+
+$(document).ready(function(){
+    $('#comprar').click(function(){
+         $('events').submit();
+    });
+});

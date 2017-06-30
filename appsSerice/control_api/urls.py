@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^register/$', views.register, name='register'),
     url(r'^login_user/$', views.login_user, name='login_user'),
+    url(r'^logout_user/$', views.logout_user, name='logout_user'),
     url(r'^(?P<category_id>[0-9]+)/$', views.detail, name='detail'),
     url(r'^products/(?P<filter_by>[a-zA_Z]+)/$', views.productos, name='productos'),
     url(r'^add_category/$', views.add_category, name='category-add'),
@@ -15,6 +16,7 @@ urlpatterns = [
         name='delete_product'),
     url(r'^(?P<category_id>[0-9]+)/deleteCategory/$', views.deleteCategory, name='category-delete'),
     url(r'^(?P<category_id>[0-9]+)/product/(?P<product_id>[0-9]+)/$', views.singleProduct_view, name='single_product'),
+    url(r'^(?P<category_id>[0-9]+)/updateProduct/$', views.product_update, name='product_update'),
 ]
 # urlpatterns = [
 #    url(r'^$', views.IndexView.as_view(), name='index'),
